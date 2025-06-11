@@ -1,0 +1,5 @@
+# LLMS.txt for jgtcore.
+# This file guides language models to our documentation about configuration and settings for jgtcore.
+
+GET /README.md
+
