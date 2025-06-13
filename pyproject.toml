@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jgtcore"
-version = "0.1.0"
+version = "0.1.4"
 description = "Core library for JGT utilities - configuration, settings, and utility functions"
 readme = "README.md"
 authors = [{ name = "Guillaume Isabelle", email = "jgi@jgwill.com" }]
-license = {text = "MIT"}
+license = "MIT"
 requires-python = ">=3.7"
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -37,9 +37,12 @@ dependencies = [
 dev = [
     "pytest",
     "pytest-cov",
+    "coverage",
     "black",
     "isort",
     "flake8",
+    "build",
+    "twine",
 ]
 
 [tool.setuptools.packages.find]
