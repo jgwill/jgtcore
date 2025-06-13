@@ -19,3 +19,4 @@ eggs/
 .cache/
 pip-wheel-metadata/
 .DS_Store
+.env
