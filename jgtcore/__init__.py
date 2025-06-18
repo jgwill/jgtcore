@@ -37,6 +37,14 @@ from .core import (  # Core configuration functions; Simple API wrappers; Enviro
     update_settings,
 )
 
+from .timeframe import (  # Timeframe scheduling functions
+    get_current_time,
+    get_times_by_timeframe_str,
+    is_timeframe_reached,
+    simulate_timeframe_reached,
+    TimeframeChecker,
+)
+
 __version__ = "0.1.4"
 __author__ = "JGWill"
 __description__ = "Core library functions extracted from jgtutils"
@@ -68,4 +76,10 @@ __all__ = [
     # Helper functions
     "update_settings",
     "load_arg_default_from_settings_if_exist",
+    # Timeframe functions
+    "get_current_time",
+    "get_times_by_timeframe_str",
+    "is_timeframe_reached",
+    "simulate_timeframe_reached",
+    "TimeframeChecker",
 ]
