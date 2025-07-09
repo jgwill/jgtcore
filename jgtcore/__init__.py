@@ -45,11 +45,18 @@ from .timeframe import (  # Timeframe scheduling functions
     TimeframeChecker,
 )
 
-__version__ = "0.1.5"
+__version__ = "0.2.0"
 __author__ = "JGWill"
 __description__ = "Core library functions extracted from jgtutils"
 
 # Export the main functions that external packages are likely to use
+# Compatibility layer for jgtutils migration
+# Import compatibility functions for backward compatibility
+from .compatibility import COMPATIBILITY_MAP, get_compatible_function
+
+# Module structure for future migrations
+from . import cli, os, env, fx, logging as jgt_logging
+
 __all__ = [
     # Configuration functions
     "readconfig",
@@ -82,4 +89,42 @@ __all__ = [
     "is_timeframe_reached",
     "simulate_timeframe_reached",
     "TimeframeChecker",
+    # Compatibility utilities
+    "COMPATIBILITY_MAP",
+    "get_compatible_function",
+    # Module namespaces for migrations
+    "cli",
+    "os", 
+    "env",
+    "fx",
+    "jgt_logging",
 ]
+
+# Import commonly used functions from migrated modules for convenience
+from .cli import new_parser, parse_args, print_jsonl_message
+from .os import i2fn, fn2i, t2fn, fn2t
+from .env import load_env
+from .fx import FXTransactWrapper, FXTransactDataHelper, ftdh, ftw
+
+# Add to __all__ for direct access
+__all__.extend([
+    # Commonly used CLI functions
+    "new_parser",
+    "parse_args", 
+    "print_jsonl_message",
+    
+    # Commonly used OS functions
+    "i2fn",
+    "fn2i",
+    "t2fn",
+    "fn2t",
+    
+    # Commonly used environment functions
+    "load_env",
+    
+    # Commonly used FX functions
+    "FXTransactWrapper",
+    "FXTransactDataHelper",
+    "ftdh",
+    "ftw",
+])
