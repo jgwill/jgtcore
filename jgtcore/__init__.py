@@ -55,7 +55,7 @@ __description__ = "Core library functions extracted from jgtutils"
 from .compatibility import COMPATIBILITY_MAP, get_compatible_function
 
 # Module structure for future migrations
-from . import cli, os, env, fx, logging as jgt_logging
+from . import cli, os, env, fx, logging as jgt_logging, constants
 
 __all__ = [
     # Configuration functions
@@ -98,6 +98,7 @@ __all__ = [
     "env",
     "fx",
     "jgt_logging",
+    "constants",
 ]
 
 # Import commonly used functions from migrated modules for convenience
@@ -105,6 +106,7 @@ from .cli import new_parser, parse_args, print_jsonl_message
 from .os import i2fn, fn2i, t2fn, fn2t
 from .env import load_env
 from .fx import FXTransactWrapper, FXTransactDataHelper, ftdh, ftw
+from .constants import NB_BARS_BY_DEFAULT_IN_CDS
 
 # Add to __all__ for direct access
 __all__.extend([
@@ -127,4 +129,7 @@ __all__.extend([
     "FXTransactDataHelper",
     "ftdh",
     "ftw",
+    
+    # Commonly used constants
+    "NB_BARS_BY_DEFAULT_IN_CDS",
 ])

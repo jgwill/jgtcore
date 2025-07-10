@@ -75,6 +75,17 @@ from .logging import (
     info, warning, error, critical, debug, exception
 )
 
+# Constants - COMPLETED
+from .constants import (
+    NB_BARS_BY_DEFAULT_IN_CDS, OPEN, HIGH, LOW, CLOSE, VOLUME, DATE, TIME,
+    JAW, TEETH, LIPS, BJAW, BTEETH, BLIPS, TJAW, TTEETH, TLIPS,
+    AO, AC, FH, FL, FH3, FL3, FH5, FL5,
+    MFI, MFI_SQUAT, MFI_GREEN, MFI_FADE, MFI_FAKE,
+    FDB, FDBB, FDBS, FDB_TARGET, ZONE_SIGNAL,
+    VECTOR_AO_FDBS, VECTOR_AO_FDBB,
+    IDS_COLUMNS_TO_NORMALIZE, ML_DEFAULT_COLUMNS_TO_KEEP
+)
+
 # Compatibility mappings for renamed/moved functions
 COMPATIBILITY_MAP = {
     # Core functions maintain same names
@@ -151,6 +162,47 @@ COMPATIBILITY_MAP = {
     'critical': critical,
     'debug': debug,
     'exception': exception,
+    
+    # Constants - Phase 7
+    'NB_BARS_BY_DEFAULT_IN_CDS': NB_BARS_BY_DEFAULT_IN_CDS,
+    'OPEN': OPEN,
+    'HIGH': HIGH,
+    'LOW': LOW,
+    'CLOSE': CLOSE,
+    'VOLUME': VOLUME,
+    'DATE': DATE,
+    'TIME': TIME,
+    'JAW': JAW,
+    'TEETH': TEETH,
+    'LIPS': LIPS,
+    'BJAW': BJAW,
+    'BTEETH': BTEETH,
+    'BLIPS': BLIPS,
+    'TJAW': TJAW,
+    'TTEETH': TTEETH,
+    'TLIPS': TLIPS,
+    'AO': AO,
+    'AC': AC,
+    'FH': FH,
+    'FL': FL,
+    'FH3': FH3,
+    'FL3': FL3,
+    'FH5': FH5,
+    'FL5': FL5,
+    'MFI': MFI,
+    'MFI_SQUAT': MFI_SQUAT,
+    'MFI_GREEN': MFI_GREEN,
+    'MFI_FADE': MFI_FADE,
+    'MFI_FAKE': MFI_FAKE,
+    'FDB': FDB,
+    'FDBB': FDBB,
+    'FDBS': FDBS,
+    'FDB_TARGET': FDB_TARGET,
+    'ZONE_SIGNAL': ZONE_SIGNAL,
+    'VECTOR_AO_FDBS': VECTOR_AO_FDBS,
+    'VECTOR_AO_FDBB': VECTOR_AO_FDBB,
+    'IDS_COLUMNS_TO_NORMALIZE': IDS_COLUMNS_TO_NORMALIZE,
+    'ML_DEFAULT_COLUMNS_TO_KEEP': ML_DEFAULT_COLUMNS_TO_KEEP,
 }
 
 def get_compatible_function(name):
@@ -203,6 +255,14 @@ __all__ = [
     # Logging functions - Phase 6
     'get_logger', 'setup_logging', 'add_error_handler', 'set_log_level', 'write_log',
     'info', 'warning', 'error', 'critical', 'debug', 'exception',
+    
+    # Constants - Phase 7
+    'NB_BARS_BY_DEFAULT_IN_CDS', 'OPEN', 'HIGH', 'LOW', 'CLOSE', 'VOLUME', 'DATE', 'TIME',
+    'JAW', 'TEETH', 'LIPS', 'BJAW', 'BTEETH', 'BLIPS', 'TJAW', 'TTEETH', 'TLIPS',
+    'AO', 'AC', 'FH', 'FL', 'FH3', 'FL3', 'FH5', 'FL5',
+    'MFI', 'MFI_SQUAT', 'MFI_GREEN', 'MFI_FADE', 'MFI_FAKE',
+    'FDB', 'FDBB', 'FDBS', 'FDB_TARGET', 'ZONE_SIGNAL',
+    'VECTOR_AO_FDBS', 'VECTOR_AO_FDBB', 'IDS_COLUMNS_TO_NORMALIZE', 'ML_DEFAULT_COLUMNS_TO_KEEP',
     
     # Compatibility utilities
     'COMPATIBILITY_MAP', 'get_compatible_function',
