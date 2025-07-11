@@ -260,10 +260,17 @@ def _quiet_post_parse() -> argparse.Namespace:
     """Handle quiet flag post-processing."""
     global args
     
-    # Simplified quiet handling - can be expanded as needed
-    if hasattr(args, 'quiet') and args.quiet:
-        # Set up quiet mode behavior
-        pass
+    # Set quiet attribute based on verbose level if not already set
+    try:
+        if not hasattr(args, 'quiet') and (hasattr(args, 'verbose') and args.verbose == 0):
+            # Add quiet to args - quiet mode activated when verbose level is 0
+            setattr(args, 'quiet', True)
+        elif not hasattr(args, 'quiet'):
+            setattr(args, 'quiet', False)
+    except:
+        # Fallback - ensure quiet attribute exists
+        if not hasattr(args, 'quiet'):
+            setattr(args, 'quiet', False)
     
     return args
 

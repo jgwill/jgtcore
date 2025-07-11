@@ -35,6 +35,7 @@ TLIPS = "tlips"
 # Awesome Oscillator constants
 AO = "ao"
 AC = "ac"
+indicator_AO_awesomeOscillator_column_name = AO  # Legacy alias for compatibility
 
 # Fractal constants
 FH = "fh"
@@ -105,7 +106,7 @@ __all__ = [
     'JAW', 'TEETH', 'LIPS', 'BJAW', 'BTEETH', 'BLIPS', 'TJAW', 'TTEETH', 'TLIPS',
     
     # Oscillator constants
-    'AO', 'AC',
+    'AO', 'AC', 'indicator_AO_awesomeOscillator_column_name',
     
     # Fractal constants
     'FH', 'FL', 'FH3', 'FL3', 'FH5', 'FL5',
