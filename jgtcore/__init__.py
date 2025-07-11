@@ -45,7 +45,7 @@ from .timeframe import (  # Timeframe scheduling functions
     TimeframeChecker,
 )
 
-__version__ = "0.2.3"
+__version__ = "0.2.5"
 __author__ = "JGWill"
 __description__ = "Core library functions extracted from jgtutils"
 

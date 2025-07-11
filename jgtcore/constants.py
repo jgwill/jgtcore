@@ -78,6 +78,13 @@ ML_DEFAULT_COLUMNS_TO_KEEP = [
     FH, FL, FDBB, FDBS, ZONE_SIGNAL
 ]
 
+#must be name like that for compatibiltiy
+# List of columns to remove
+columns_to_remove = ['aofvalue', 'aofhighao', 'aoflowao', 'aofhigh', 'aoflow', 'aocolor', 'accolor','fdbbhigh','fdbblow','fdbshigh','fdbslow']
+
+
+
+
 # Chart configuration constants
 DEFAULT_CHART_WIDTH = 1200
 DEFAULT_CHART_HEIGHT = 800

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jgtcore"
-version = "0.2.3"
+version = "0.2.5"
 description = "Comprehensive core library for JGT applications - migrated from jgtutils with full compatibility"
 readme = "README.md"
 authors = [{ name = "Guillaume Isabelle", email = "jgi@jgwill.com" }]
