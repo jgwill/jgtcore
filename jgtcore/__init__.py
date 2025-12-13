@@ -35,6 +35,8 @@ from .core import (  # Core configuration functions; Simple API wrappers; Enviro
     setup_environment,
     str_to_datetime,
     update_settings,
+    # NEW: Tracing configuration
+    get_tracing_config,
 )
 
 from .timeframe import (  # Timeframe scheduling functions
@@ -54,6 +56,12 @@ __description__ = "Core library functions extracted from jgtutils"
 # Import compatibility functions for backward compatibility
 from .compatibility import COMPATIBILITY_MAP, get_compatible_function
 
+# NEW: Tracing infrastructure
+from .tracing import (
+    JGTTracer, create_session_tracer, 
+    get_trace_url, is_tracing_enabled
+)
+
 # Module structure for future migrations
 from . import cli, os, env, fx, logging as jgt_logging, constants
 
@@ -62,6 +70,7 @@ __all__ = [
     "readconfig",
     "load_settings",
     "get_settings",
+    "get_tracing_config",
     # Simple API wrappers
     "get_config",
     "get_setting",
@@ -89,6 +98,11 @@ __all__ = [
     "is_timeframe_reached",
     "simulate_timeframe_reached",
     "TimeframeChecker",
+    # Tracing infrastructure
+    "JGTTracer",
+    "create_session_tracer", 
+    "get_trace_url",
+    "is_tracing_enabled",
     # Compatibility utilities
     "COMPATIBILITY_MAP",
     "get_compatible_function",

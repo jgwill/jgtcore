@@ -666,3 +666,87 @@ def is_demo_mode() -> bool:
         return config.get("connection", "").lower() == "demo"
     except:
         return False
+
+
+# Tracing Configuration Functions
+
+def _resolve_env_variables(config_value):
+    """Resolve ${VAR_NAME} placeholders with environment variables."""
+    import re
+    
+    if isinstance(config_value, str):
+        # Replace ${VAR_NAME} with environment variable value
+        pattern = r'\$\{([^}]+)\}'
+        
+        def replace_env_var(match):
+            env_var = match.group(1)
+            return os.getenv(env_var, match.group(0))  # Return original if not found
+            
+        return re.sub(pattern, replace_env_var, config_value)
+    elif isinstance(config_value, dict):
+        return {k: _resolve_env_variables(v) for k, v in config_value.items()}
+    elif isinstance(config_value, list):
+        return [_resolve_env_variables(item) for item in config_value]
+    else:
+        return config_value
+
+
+def _load_env_file(env_file_path=".env.caishen"):
+    """Load environment variables from .env.caishen file."""
+    # Try multiple potential locations (removed duplicate /src path)
+    search_paths = [
+        os.path.join(os.getcwd(), env_file_path),  # Current directory
+        os.path.join(os.path.expanduser("~"), env_file_path),  # Home directory
+        os.path.join("/src", env_file_path),  # /src directory
+        env_file_path if os.path.isabs(env_file_path) else None  # Absolute path if provided
+    ]
+    
+    # Filter out None values and find existing file
+    valid_paths = [path for path in search_paths if path is not None]
+    env_path = None
+    
+    for path in valid_paths:
+        if os.path.exists(path):
+            env_path = path
+            break
+    
+    if env_path:
+        try:
+            variables_loaded = 0
+            with open(env_path, 'r') as f:
+                for line_num, line in enumerate(f, 1):
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        try:
+                            key, value = line.split('=', 1)
+                            key = key.strip()
+                            value = value.strip().strip('"\'')
+                            os.environ[key] = value
+                            variables_loaded += 1
+                        except ValueError:
+                            print(f"Warning: Invalid format in {env_file_path} line {line_num}: {line}")
+            
+            if variables_loaded > 0:
+                print(f"Loaded {variables_loaded} environment variables from {env_path}")
+                
+        except Exception as e:
+            print(f"Warning: Error loading {env_file_path} from {env_path}: {e}")
+    else:
+        # Only show warning if file was explicitly requested (not default search)
+        if env_file_path != ".env.caishen":
+            print(f"Warning: Environment file {env_file_path} not found in any of: {valid_paths}")
+
+
+def get_tracing_config(config=None):
+    """Get tracing configuration with environment variable resolution."""
+    if config is None:
+        config = readconfig()
+    
+    # Load .env.caishen if available
+    _load_env_file(".env.caishen")
+    
+    tracing_config = config.get("tracing", {})
+    if tracing_config:
+        tracing_config = _resolve_env_variables(tracing_config)
+    
+    return tracing_config

@@ -25,6 +25,7 @@ keywords = ["configuration", "settings", "utilities", "jgt", "trading", "fx", "c
 dependencies = [
   'python-dotenv',
   'ruamel.yaml>=0.18.6',
+  'coaiapy>=0.2.57',
 ]
 
 [project.urls]
