@@ -1,0 +1,43 @@
+{
+  "user_id": "YOUR_TRADING_USER_ID",
+  "account": "YOUR_ACCOUNT_NUMBER",
+  "password": "YOUR_TRADING_PASSWORD",
+  "user_id_demo": "YOUR_DEMO_USER_ID",
+  "password_demo": "YOUR_DEMO_PASSWORD",
+  "account_demo": "YOUR_DEMO_ACCOUNT",
+  "url": "https://www.fxcorporate.com/Hosts.jsp",
+  "connection": "Real",
+  "quotes_count": 1000,
+  "pds_server_url": "http://localhost:5000",
+  "columns_to_remove": [
+    "fdbbhigh",
+    "fdbblow",
+    "fdbshigh",
+    "fdbslow",
+    "aofhighao",
+    "aoflowao",
+    "aofhigh",
+    "aoflow"
+  ],
+  "quit_on_stop": "false",
+  "keep_bid_ask": "true",
+  
+  "tracing": {
+    "enabled": true,
+    "provider": "langfuse",
+    "project_name": "jgt-trading-ecosystem",
+    "session_prefix": "jgt_session",
+    "environment": "production",
+    "batch_size": 50,
+    "timeout_ms": 5000,
+    "fail_silent": true,
+    "trace_levels": ["INFO", "WARNING", "ERROR"],
+    "excluded_packages": [],
+    "langfuse": {
+      "secret_key": "${LANGFUSE_SECRET_KEY}",
+      "public_key": "${LANGFUSE_PUBLIC_KEY}",
+      "host": "${LANGFUSE_HOST}",
+      "trace_url": "${LANGFUSE_TRACE_URL}"
+    }
+  }
+}
