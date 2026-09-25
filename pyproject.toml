@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "jgtcore"
-version = "0.2.5"
+version = "0.2.6"
 description = "Comprehensive core library for JGT applications - migrated from jgtutils with full compatibility"
 readme = "README.md"
 authors = [{ name = "Guillaume Isabelle", email = "jgi@jgwill.com" }]
@@ -25,7 +25,6 @@ keywords = ["configuration", "settings", "utilities", "jgt", "trading", "fx", "c
 dependencies = [
   'python-dotenv',
   'ruamel.yaml>=0.18.6',
-  'coaiapy>=0.2.57',
 ]
 
 [project.urls]
@@ -35,6 +34,12 @@ dependencies = [
 "Source Code" = "https://github.com/jgwill/jgtcore"
 
 [project.optional-dependencies]
+# JGTTracer sends traces through coaiapy when it is installed and is a no-op
+# otherwise. Optional because coaiapy pins urllib3<2, requests<2.29 and
+# redis<=4.3.6, which every jgtcore consumer would otherwise inherit.
+tracing = [
+    "coaiapy>=0.2.57",
+]
 dev = [
     "pytest",
     "pytest-cov",

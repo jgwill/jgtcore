@@ -5,6 +5,7 @@ Provides Langfuse integration through CoaiaPy with fail-safe design.
 """
 
 import os
+import sys
 import json
 import uuid
 import datetime
@@ -20,6 +21,10 @@ try:
     COAIAPY_AVAILABLE = True
 except ImportError:
     COAIAPY_AVAILABLE = False
+
+# The "coaiapy missing" notice goes to stderr once per process: a tracer is
+# built for every CDS, and stdout belongs to the CLIs that print file paths.
+_COAIAPY_NOTICE_SHOWN = False
 
 # Configuration constants
 DEFAULT_BATCH_SIZE = 50
@@ -56,7 +61,7 @@ class JGTTracer:
         
         # Validate package name (with warning for unknown packages)
         if package_name not in VALID_PACKAGES:
-            print(f"Warning: Unknown package '{package_name}'. Known packages: {', '.join(sorted(VALID_PACKAGES))}")
+            print(f"Warning: Unknown package '{package_name}'. Known packages: {', '.join(sorted(VALID_PACKAGES))}", file=sys.stderr)
         
         self.package_name = package_name
         self.operation_type = operation_type
@@ -69,8 +74,11 @@ class JGTTracer:
         self.config = self._load_tracing_config()
         self.enabled = self.config.get("enabled", True) and COAIAPY_AVAILABLE
         
-        if not self.enabled and not COAIAPY_AVAILABLE:
-            print(f"Info: CoaiaPy not available, tracing disabled for {package_name}")
+        global _COAIAPY_NOTICE_SHOWN
+        if not self.enabled and not COAIAPY_AVAILABLE and not _COAIAPY_NOTICE_SHOWN:
+            _COAIAPY_NOTICE_SHOWN = True
+            print("Info: coaiapy not installed, JGT tracing disabled "
+                  "(pip install 'jgtcore[tracing]')", file=sys.stderr)
     
     def _load_tracing_config(self) -> Dict[str, Any]:
         """Load tracing configuration with defaults."""
@@ -95,7 +103,7 @@ class JGTTracer:
             
             return config
         except Exception as e:
-            print(f"Warning: Error loading tracing config, using defaults: {e}")
+            print(f"Warning: Error loading tracing config, using defaults: {e}", file=sys.stderr)
             return {"enabled": False, "fail_silent": True}
     
     def _safe_execute(self, operation, *args, **kwargs):
@@ -107,7 +115,7 @@ class JGTTracer:
             return operation(*args, **kwargs)
         except Exception as e:
             if not self.config.get("fail_silent", True):
-                print(f"Tracing error in {self.package_name}: {e}")
+                print(f"Tracing error in {self.package_name}: {e}", file=sys.stderr)
             return None
     
     def start_operation(self, name: str, input_data: Any = None, metadata: Dict[str, Any] = None) -> str:
@@ -151,7 +159,7 @@ class JGTTracer:
         )
         
         if result:
-            print(f"🔍 Trace started: {self.package_name}:{name} [{self.trace_id[:8]}...]")
+            print(f"🔍 Trace started: {self.package_name}:{name} [{self.trace_id[:8]}...]", file=sys.stderr)
             
         return self.trace_id
     
@@ -239,7 +247,7 @@ class JGTTracer:
         )
         
         if result:
-            print(f"✅ Trace completed: {self.package_name} [{self.trace_id[:8]}...] with {len(self.observations)} steps")
+            print(f"✅ Trace completed: {self.package_name} [{self.trace_id[:8]}...] with {len(self.observations)} steps", file=sys.stderr)
             
         return result is not None
     
